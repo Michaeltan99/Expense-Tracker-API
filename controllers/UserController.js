@@ -1,156 +1,64 @@
+//usercontroller.js
+
 const m$user = require("../modules/user.module");
 const { Router } = require("express");
 const response = require("../helpers/response");
 
-class _user {
-  listUser = async () => {
-    try {
-      const list = await prisma.user.findMany();
+const UserController = Router();
 
-      return {
-        status: true,
+/** /
+ *List User
 
-        data: list,
-      };
-    } catch (error) {
-      console.log("listUser user  module Error: ", error);
+ *http://localhost:8000/api/users
+ **/
 
-      return {
-        status: false,
-        error,
-      };
-    }
-  };
-  createUser = async (body) => {
-    try {
-      //validation input dari body
-      const schema = Joi.object({
-        name: Joi.string().required(),
+UserController.get("/", async (req, res) => {
+  const list = await m$user.listUser();
 
-        password: Joi.string().required(),
-      });
-      const validation = schema.validate(body);
+  //response helper
+  response.sendResponse(res, list);
+});
 
-      if (validation.error) {
-        const errorDetails = validation.error.details.map(
-          (detail) => detail.message
-        );
+/** /
+ *Create User
 
-        return {
-          status: false,
-          code: 422,
-          error: errorDetails.join(", "),
-        };
-      }
-      body.password = bcrypt.hashSync(body.password, 10);
+ *http://localhost:8000/api/users
+ **/
 
-      const add = await prisma.user.create({
-        data: {
-          name: body.name,
+UserController.post("/", async (req, res) => {
+  //req.body merupakan input dari client berupa json
+  const add = await m$user.createUser(req.body);
 
-          password: body.password,
-        },
-      });
+  //response helper
+  response.sendResponse(res, add);
+});
 
-      return {
-        status: true,
-        data: add,
-      };
-    } catch (error) {
-      console.log("crateUser user module error", error);
+/** /
+ *Update User
 
-      return {
-        status: false,
-        error,
-      };
-    }
-  };
+ *http://localhost:8000/api/users
+ **/
 
-  updateUser = async (body) => {
-    try {
-      //validation input dari body
-      const schema = Joi.object({
-        id: Joi.number().required(),
-        name: Joi.string(),
+UserController.put("/", async (req, res) => {
+  //req.body merupakan input dari client berupa json
+  const update = await m$user.updateUser(req.body);
 
-        password: Joi.string(),
-      });
-      const validation = schema.validate(body);
-      if (validation.error) {
-        const errorDetails = validation.error.details.map(
-          (detail) => detail.message
-        );
+  //response helper
+  response.sendResponse(res, update);
+});
 
-        return {
-          status: false,
-          code: 422,
-          error: errorDetails.join(", "),
-        };
-      }
-      if (body.password) {
-        body.password = bcrypt.hashSync(body.password, 10);
-      }
+/** /
+ *Delete User
 
-      const update = await prisma.user.update({
-        where: {
-          id: body.id,
-        },
-        data: {
-          name: body.name,
+ *http://localhost:8000/api/users/:id
+ **/
 
-          password: body.password,
-        },
-      });
+UserController.delete("/:id", async (req, res) => {
+  //req.prams merupakan input dari client berupa json
+  const del = await m$user.deleteUser(Number(req.params.id));
 
-      return {
-        status: true,
-        data: update,
-      };
-    } catch (error) {
-      console.log("updateUser user module error", error);
+  //response helper
+  response.sendResponse(res, del);
+});
 
-      return {
-        status: false,
-        error,
-      };
-    }
-  };
-
-  deleteUser = async (id) => {
-    try {
-      //validation input dari body
-      const schema = Joi.number().required();
-
-      const validation = schema.validate(id);
-      if (validation.error) {
-        const errorDetails = validation.error.details.map(
-          (detail) => detail.message
-        );
-
-        return {
-          status: false,
-          code: 422,
-          error: errorDetails.join(", "),
-        };
-      }
-      const del = await prisma.user.delete({
-        where: {
-          id: id,
-        },
-      });
-      return {
-        status: true,
-        data: del,
-      };
-    } catch (error) {
-      console.log("deleteUser user module Error: ", error);
-
-      return {
-        status: false,
-        error,
-      };
-    }
-  };
-}
-
-module.exports = new _user();
+module.exports = UserController;
