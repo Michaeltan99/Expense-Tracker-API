@@ -55,11 +55,11 @@ UserController.put("/update", userSession, async (req, res) => {
    response.sendResponse(res, update);
 });
 
-/** /
- *Delete User berdasarkan input id dari user
-
- *http://localhost:8001/api/user/:id
- **/
+/**
+ * Delete User berdasarkan input id dari user
+ *
+ * http://localhost:8001/api/user/:id
+ */
 
 UserController.delete("/:id", async (req, res) => {
    //req.prams merupakan input dari client berupa json
