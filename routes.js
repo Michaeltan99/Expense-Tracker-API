@@ -1,4 +1,4 @@
-const transController = require('./controllers/TodoController')
+const transController = require('./controllers/TransactionController')
 const userController = require('./controllers/UserController')
 const authController = require('./controllers/AuthController')
 

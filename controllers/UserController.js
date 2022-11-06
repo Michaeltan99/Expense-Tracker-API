@@ -1,5 +1,3 @@
-//usercontroller.js
-
 const m$user = require("../modules/user.module");
 const { Router } = require("express");
 const response = require("../helpers/response");
@@ -9,7 +7,7 @@ const UserController = Router();
 /** /
  *List User
 
- *http://localhost:8000/api/users
+ *http://localhost:8001/api/users
  **/
 
 UserController.get("/", async (req, res) => {
@@ -22,7 +20,7 @@ UserController.get("/", async (req, res) => {
 /** /
  *Create User
 
- *http://localhost:8000/api/users
+ *http://localhost:8001/api/users
  **/
 
 UserController.post("/", async (req, res) => {
@@ -36,7 +34,7 @@ UserController.post("/", async (req, res) => {
 /** /
  *Update User
 
- *http://localhost:8000/api/users
+ *http://localhost:8001/api/users
  **/
 
 UserController.put("/", async (req, res) => {
@@ -50,7 +48,7 @@ UserController.put("/", async (req, res) => {
 /** /
  *Delete User
 
- *http://localhost:8000/api/users/:id
+ *http://localhost:8001/api/users/:id
  **/
 
 UserController.delete("/:id", async (req, res) => {

@@ -26,7 +26,6 @@ class _user {
       //validation input dari body
       const schema = Joi.object({
         name: Joi.string().required(),
-
         password: Joi.string().required(),
       });
       const validation = schema.validate(body);
@@ -47,7 +46,6 @@ class _user {
       const add = await prisma.user.create({
         data: {
           name: body.name,
-
           password: body.password,
         },
       });
@@ -72,7 +70,6 @@ class _user {
       const schema = Joi.object({
         id: Joi.number().required(),
         name: Joi.string(),
-
         password: Joi.string(),
       });
       const validation = schema.validate(body);
@@ -97,7 +94,6 @@ class _user {
         },
         data: {
           name: body.name,
-
           password: body.password,
         },
       });
