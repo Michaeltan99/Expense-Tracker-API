@@ -6,7 +6,7 @@ const AuthController = Router();
 
 /**
  * Login
- * @param {string} email
+ * @param {string} name
  * @param {string} password
  * 
  * http://localhost/:8000/api/login

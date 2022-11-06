@@ -7,7 +7,7 @@ class _auth{
     login = async (body) =>{
         try {
             const schema = Joi.object({
-                email: Joi.string().require(),
+                name: Joi.string().require(),
                 password: Joi.string().require()
             })
 
@@ -23,10 +23,10 @@ class _auth{
                 }
             }
 
-            // Search user By email
+            // Search user By name
             const user = await prisma.user.findFirst({
                 where: {
-                    email: body.email
+                    name: body.name
                 }
             })
 
@@ -51,7 +51,6 @@ class _auth{
             // Generate token
             const payload = {
                 id: user.id,
-                email: user.email,
                 name: user.name
             }
 
