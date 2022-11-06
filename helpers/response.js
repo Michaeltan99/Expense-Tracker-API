@@ -26,6 +26,14 @@ class _response {
             return false
         }
     }
+
+    errorHandler = (err, req, res, next) => {
+        // Global error handler
+        res.status(500).send({
+            status: false,
+            error: err
+        })
+    }
 }
 
 module.exports = new _response()

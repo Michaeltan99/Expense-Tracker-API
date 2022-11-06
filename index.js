@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const routes = require("./routes");
+const response = require("./helpers/response");
 
 const app = express();
 const port = 8001;
@@ -17,6 +18,9 @@ app.get("/", async (req, res) => {
 });
 
 routes(app);
+
+// Error handler global
+app.use(response.errorHandler)
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost/${port}`);
