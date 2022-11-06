@@ -24,8 +24,8 @@ model Transaction {
   cash_in     Float
   cash_out    Float
   description String
-  created_at  DateTime
-  update_at   DateTime
+  creat_at DateTime @default(now())
+  update_at DateTime  @default(now()) @updatedAt
   user        User     @relation(fields: [UserId], references: [id])
   UserId      Int
 }

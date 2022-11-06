@@ -9,7 +9,7 @@ const AuthController = Router();
  * @param {string} name
  * @param {string} password
  * 
- * http://localhost/:8000/api/login
+ * http://localhost/:8001/api/login
  */
 AuthController.post('/login', async (req, res) => {
     const login = await m$auth.login(req.body)

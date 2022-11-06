@@ -21,6 +21,7 @@ class _user {
       };
     }
   };
+  
   createUser = async (body) => {
     try {
       //validation input dari body
