@@ -19,6 +19,9 @@ describe("Transaction API Test", () => {
       .post("/api/trans/addtrans")
       .set("Authorization", `Bearer ${token}`)
       .send({
+        userId:2,
+        cash_in:1000.50,
+        cash_out:0,
         description: "Test Add Transaction from Unit Test",
       });
     expect(res.status).toBe(201);
